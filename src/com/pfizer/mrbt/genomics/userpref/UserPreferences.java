@@ -81,10 +81,10 @@ public class UserPreferences {
     private int heatmapFunction  = DEFAULT_HEAT_MAP_FUNCTION;
     private int heatmapTopNindex = DEFAULT_HEAT_MAP_TOP_N_INDEX;
     private int basePairSearchRadius = DEFAULT_BASE_PAIR_RADIUS;
-    private Point mainFrameLocation = null;
-    private Point geneModelFrameLocation = null;
-    private Dimension mainFrameSize = null;
-    private Dimension geneModelFrameSize = null;
+    private Point mainFrameLocation = new Point(30, 17);
+    private Point geneModelFrameLocation = new Point(830,17);
+    private Dimension mainFrameSize = new Dimension(800,700);
+    private Dimension geneModelFrameSize = new Dimension(226, 700);
     
     public UserPreferences() {
         loadUserPreferences();

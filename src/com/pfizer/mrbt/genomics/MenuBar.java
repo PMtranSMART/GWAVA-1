@@ -1345,7 +1345,7 @@ public class MenuBar extends JMenuBar {
             Singleton.getMainFrame().setLocation(30,17);
             Singleton.getMainFrame().setSize(new Dimension(800,700));
             Singleton.getGeneModelFrame().setLocation(830,17);
-            Singleton.getGeneModelFrame().setSize(new Dimension(200,700));
+            Singleton.getGeneModelFrame().setSize(new Dimension(226,700));
 
         }
     }
