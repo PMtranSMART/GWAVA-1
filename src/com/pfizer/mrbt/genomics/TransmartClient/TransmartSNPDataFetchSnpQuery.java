@@ -158,9 +158,10 @@ public class TransmartSNPDataFetchSnpQuery extends TransmartSNPDataFetch {
             if (rsName.equals(snpSearchName)) {
                 minLoc = loc - radius;
                 maxLoc = loc + radius;
+            } else {
+                if(loc < minLoc) { minLoc = loc; }
+                if(loc > maxLoc) { maxLoc = loc; }
             }
-            //if(loc < minLoc) { minLoc = loc; }
-            //if(loc > maxLoc) { maxLoc = loc; }
             SNP currSnp = dataSet.checkAddSnp(rsId);
             if (row.size() == TransmartServicesParameters.SNP_SEARCH_NUM_FIELDS) {
                 // Must contain the added 3 features: intron/exon, regulome, recombination rate

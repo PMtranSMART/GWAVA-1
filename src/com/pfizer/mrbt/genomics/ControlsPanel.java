@@ -56,6 +56,7 @@ public class ControlsPanel extends JComponent {
     private AbstractButton editLinesButton;
     private JCheckBox printReadyCheckBox;
     private JComponent imageOptionsPanel;
+    private boolean snpSearchRequest = true; // if search for SNP using search button, true else false
 
     private String[] SNP_LINES_CHOICES = {"No Lines", "Average Lines", "Connecting Lines"};
 
@@ -217,7 +218,7 @@ public class ControlsPanel extends JComponent {
                 }
             }
         }
-        if (foundRsIdEntries.isEmpty()) {
+        if (foundRsIdEntries.isEmpty() && snpSearchRequest) {
             System.out.println("No rsId entries found");
             Singleton.getState().clearRsIdSearchResults();
             JOptionPane.showMessageDialog(
@@ -646,8 +647,10 @@ public class ControlsPanel extends JComponent {
         public void mainPlotChanged(ChangeEvent ce) { 
             String selectedGeneSnp = Singleton.getState().getMainView().getDataSet().getGeneRange().getName();
             if(selectedGeneSnp.startsWith("rs")) {
+                snpSearchRequest = false;
                 geneSearchField.setText(selectedGeneSnp);
                 geneSearchButton.doClick();
+                snpSearchRequest = true;
             }
         }
 

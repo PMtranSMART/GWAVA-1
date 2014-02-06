@@ -476,7 +476,7 @@ public class MenuBar extends JMenuBar {
         pane.add(getHorizCenteredBox("Anna Silberberg"));
         pane.add(getHorizCenteredBox("David Klatte"));
 
-        pane.add(getHorizCenteredBox("\u00A9 Copyright 2012, 2013  Pfizer Inc."));
+        pane.add(getHorizCenteredBox("\u00A9 Copyright 2012, 2013, 2014  Pfizer Inc."));
         pane.add(Box.createRigidArea(new Dimension(0, 10)));
         pane.setBorder(BorderFactory.createRaisedBevelBorder());
         pane.setBorder(BorderFactory.createCompoundBorder(
