@@ -571,6 +571,8 @@ public class ManhattanPlot extends JComponent {
         this.view = view;
         this.dataSet = view.getDataSet();
         setupAxes();
+        setPreferredSize(this.getWidth(), this.getHeight());
+        reStartGraphics();
         render();
         repaint();
     }

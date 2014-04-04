@@ -137,6 +137,8 @@ public class TransmartSNPDataFetchSnpQuery extends TransmartSNPDataFetch {
         int minLoc = Integer.MAX_VALUE;
         int maxLoc = Integer.MIN_VALUE;
         int chromosome = -1;
+        HashMap<String,Model> studySetModel2model = new HashMap<String,Model>();
+        
         ArrayList<ArrayList<String>> queryResults;
         try {
             queryResults = TransmartUtil.parseXml(xmlResult);
@@ -188,8 +190,15 @@ public class TransmartSNPDataFetchSnpQuery extends TransmartSNPDataFetch {
                 currSnp.setRegulome(regulomeStr);
             }
             currSnp.setLoc(loc);
-            Model currModel = dataSet.checkAddModel(studySetModel.getStudy(), studySetModel.getSet(), studySetModel.getModel());
-            dataSet.addSnpModel2Pval(currSnp, currModel, logPval);
+            String key = studySetModel.getKey();
+            if(! studySetModel2model.containsKey(key)) {
+                studySetModel2model.put(key, new Model(studySetModel.getStudy(), studySetModel.getSet(), studySetModel.getModel()));
+            } 
+            studySetModel2model.get(key).addSnpPval(currSnp, logPval);
+            
+            //Model currModel = dataSet.checkAddModel(studySetModel.getStudy(), studySetModel.getSet(), studySetModel.getModel());
+            //currModel.addSnpPval(currSnp, logPval);
+            //dataSet.addSnpModel2Pval(currSnp, currModel, logPval);
             rowIndex++;
         }
         // kluge todo
@@ -200,6 +209,9 @@ public class TransmartSNPDataFetchSnpQuery extends TransmartSNPDataFetch {
         dataSet.setGeneRange(geneRange);
         dataSet.setDbSnpOption(dbSnpOption);
         dataSet.setGeneSourceOption(geneSourceOption);
+        for(Model model : studySetModel2model.values()) {
+            dataSet.addModel(model);
+        }
         return dataSet;
     }
 

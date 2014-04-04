@@ -169,6 +169,7 @@
 
 		<echo message="--------- ${project.title} ${project.display.version} ---------"/>
 		<echo message="java.home   = ${java.home}"/>
+		<echo message="base.dir   = ${basedir}"/>
 		<echo message="proj.dir    = ${basedir}"/>
 	</target>
 
@@ -182,9 +183,7 @@
 	               debug="${compile.debug}"
 	               optimize="${compile.optimize}"
 	               verbose="${compile.verbose}"
-	               deprecation="${compile.deprecation}"
-				   >
-
+	               deprecation="${compile.deprecation}">
 			<classpath>
 				<path refid="gwava.classpath"/>
 			</classpath>
@@ -258,14 +257,15 @@
 <target name="unsignjar" description="call macro to unsign jar">
 	<for param="file">
 		<path>
-			<fileset dir="${gwava.build.dist.lib.dir}" includes="**/*.jar"/>
+			<fileset dir="${gwava.builds.dist.lib.dir}" includes="**/*.jar"/> <!-- pvh changed to builds not build -->
 		</path>
 		<sequential>
 			<unsignjar jar="@{file}"/>
 		</sequential>
 	</for>
-	<unsignjar jar="${gwava.build.dist.dir}/${project.name}.jar"/>
+	<unsignjar jar="${gwava.builds.dist.dir}/${project.name}.jar"/> <!-- pvh changed to builds not build -->
 </target>
+
 	<!--unsing Macro	-->
 	<macrodef name="unsignjar">
 

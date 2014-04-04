@@ -493,23 +493,9 @@ public class ControlsPanel extends JComponent {
 
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    //AnnotationPanel annotationPanel = ControlsPanel.this.plotPanel.getAnnotationPanel();  1/10/14
-                    //annotationPanel.setHeight(annotationPanel.getPreferredHeight());
-                    //annotationPanel.setSize(annotationPanel.getWidth(), annotationPanel.getPreferredHeight());
-                    //annotationPanel.setMaximumSize(new Dimension(annotationPanel.getWidth(), annotationPanel.getPreferredHeight()));
-                    //annotationPanel.setMinimumSize(new Dimension(annotationPanel.getWidth(), annotationPanel.getPreferredHeight()));
-                    //System.out.println("Annotation Pref height: " + annotationPanel.getHeight() + " vs. desired " + annotationPanel.getPreferredHeight());
                     ControlsPanel.this.plotPanel.getManhattanPlot().adjustImage();
                     ControlsPanel.this.plotPanel.revalidate();
-                    //ControlsPanel.this.plotPanel.adjustAnnotationScrollPane();
-                    //ControlsPanel.this.plotPanel.getYAxisRegion().repaint();
                     ControlsPanel.this.plotPanel.getYAxisRegion().repaint();
-                    //ControlsPanel.this.plotPanel.getSecondYAxisRegion().repaint();
-                    //Dimension currDimension = ControlsPanel.this.plotPanel.getSize();
-                    //Dimension tempSize      = new Dimension(currDimension.width, currDimension.height+1);
-                    //ControlsPanel.this.plotPanel.setSize(tempSize);
-                    //ControlsPanel.this.plotPanel.setSize(currDimension);
-                    //System.out.println("Adjust vscale: " + Singleton.getState().getMainView().getVscale());
                 }
             });
         }
@@ -586,11 +572,17 @@ public class ControlsPanel extends JComponent {
                     java.net.URL imgURL = this.getClass().getResource("/images/guava_48.jpg");
                     //Image icon = new ImageIcon(imgURL).getImage();
 
-                    int optionPaneReturn = JOptionPane.showConfirmDialog(
+                    /*int optionPaneReturn = JOptionPane.showConfirmDialog(
                             (JFrame) SwingUtilities.getWindowAncestor(ControlsPanel.this),
                             lineModificationPane, "Edit lines",
                             JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            new ImageIcon(imgURL));*/
+                    JOptionPane.showMessageDialog(
+                            ControlsPanel.this.getTopLevelAncestor(),
+                            lineModificationPane, "Edit lines",
+                            JOptionPane.PLAIN_MESSAGE,
                             new ImageIcon(imgURL));
+                            
                 }
             });
         }

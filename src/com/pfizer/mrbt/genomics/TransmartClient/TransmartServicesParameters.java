@@ -29,7 +29,8 @@ public class TransmartServicesParameters {
     public final static String DEV_URL2    = "http://" + DEV_HOST   + ":" + PORT + "/transmartPfizer/webservice/";
     //public final static String SERVER_URL = "http://" + STAGE_HOST + ":" + PORT + "/transmartPfizer/webservice/";
 
-    public final static String MODEL_FETCH_METHOD = "getModelInfoByDataType";
+    //public final static String MODEL_FETCH_METHOD = "getModelInfoByDataType";
+    public final static String MODEL_FETCH_METHOD = "getSecureModelInfoByDataType";
     //public final static int MODEL_FETCH_SERVICE_ID = 775;
     public final static int MODEL_FETCH_GWAS_DATA_TYPE      = 1;
     public final static int MODEL_FETCH_EQTL_DATA_TYPE      = 2;
@@ -178,7 +179,7 @@ public class TransmartServicesParameters {
     public static String getServerURL(Environment environment) {
         switch(environment) {
             case STAGE:
-                return STAGE_URL;
+                return STAGE_URL2;
             case DEV:
                 return DEV_URL;
             default:

@@ -31,9 +31,9 @@ import java.util.concurrent.Executors;
  */
 public class DataRetrievalWithThreadPool {
     private final DataRetrievalInterface dataRetrievalInterface;
-    public static final int DEFAULT_MAX_POOL_SIZE = 3; // thread pool maximum threads
+    public static final int DEFAULT_MAX_POOL_SIZE = 10; // thread pool maximum threads
     private int maxThreadPoolSize = DEFAULT_MAX_POOL_SIZE;
-    public final static int DEFAULT_MAX_NUM_MODELS = 3;
+    public final static int DEFAULT_MAX_NUM_MODELS = 1;
     private int maxNumModels = DEFAULT_MAX_NUM_MODELS;
     
     private final ExecutorService threadPool = Executors.newFixedThreadPool(maxThreadPoolSize);
@@ -73,7 +73,7 @@ public class DataRetrievalWithThreadPool {
         for(final String geneRequest : geneRequestList) {
             final String geneRequestFormatted = formatGeneSnpRequest(geneRequest);
             for(int modelOptionIndex = 0; modelOptionIndex < numModelOptions; modelOptionIndex += maxNumModels) {
-                System.out.println("Submitting retrieval task for " + geneRequestFormatted + " " + queryNumber);
+                //System.out.println("Submitting retrieval task for " + geneRequestFormatted + " " + queryNumber);
                 List<ModelOption> modelOptionsSubset = subsetModelOptions(modelOptions, 
                                                                           modelOptionIndex, 
                                                                           Math.min(modelOptionIndex + maxNumModels, numModelOptions));
@@ -84,7 +84,7 @@ public class DataRetrievalWithThreadPool {
         for(final String geneRequest : geneRequestList) {
             final String geneRequestFormatted = formatGeneSnpRequest(geneRequest);
             for(int modelOptionIndex = 0; modelOptionIndex < numModelOptions; modelOptionIndex += maxNumModels) {
-                System.out.println("Submitting retrieval task for " + geneRequestFormatted + " " + startQueryIndex);
+                //System.out.println("Submitting retrieval task for " + geneRequestFormatted + " " + startQueryIndex);
                 List<ModelOption> modelOptionsSubset = subsetModelOptions(modelOptions, 
                                                                           modelOptionIndex, 
                                                                           Math.min(modelOptionIndex + maxNumModels, numModelOptions));
@@ -139,12 +139,16 @@ public class DataRetrievalWithThreadPool {
                                        geneSourceOption,
                                        basePairRadius);
 
-                ArrayList<GeneAnnotation> geneAnnotations = retrieveAnnotation(dataSet, geneSourceOption);
-                dataSet.setGeneAnnotations(geneAnnotations);
+                DataSet existingDataSet = Singleton.getDataModel().getDataSet(geneRequestFormatted);
+                if (existingDataSet == null || ! existingDataSet.hasSameRadiusDbSnpGenesource(basePairRadius, dbSnpSourceOption, geneSourceOption)) {
+                
+                    ArrayList<GeneAnnotation> geneAnnotations = retrieveAnnotation(dataSet, geneSourceOption);
+                    dataSet.setGeneAnnotations(geneAnnotations);
 
-                ArrayList<SnpRecombRate> recombRate = retrieveRecombinationRates(geneRequestFormatted, basePairRadius, geneSourceOption, dbSnpSourceOption);
-                float maxRecombRate = computeMaxRecombinationRate(recombRate);
-                dataSet.setRecombinationRate(recombRate, maxRecombRate);
+                    ArrayList<SnpRecombRate> recombRate = retrieveRecombinationRates(geneRequestFormatted, basePairRadius, geneSourceOption, dbSnpSourceOption);
+                    float maxRecombRate = computeMaxRecombinationRate(recombRate);
+                    dataSet.setRecombinationRate(recombRate, maxRecombRate);
+                }
                 
                 postProcessDataSet(dataSet, queryNumber, geneRequestFormatted);
                 
@@ -169,14 +173,16 @@ public class DataRetrievalWithThreadPool {
             Singleton.getState().retrievalCompleted(geneName, 0, SearchStatus.FAILED, queryId);
             return;
         }
+        
+        //Singleton.getDataModel().updateDataSets(dataSet, geneName);
         //String geneName = dataSet.getGeneRange().getName();
         DataSet existingDataSet = Singleton.getDataModel().getDataSet(geneName);
         if (existingDataSet == null) {  // new gene
             Singleton.getDataModel().addDataSet(geneName, dataSet);
 
-        } else if (sameRadiusDbSnpGeneSource(dataSet, existingDataSet)) {
+        } else if (existingDataSet.hasSameRadiusDbSnpGeneSource(dataSet)) {
             /* allows new models for same gene to be added if same radius/dbSnp/GeneSource */
-            removeDataSetModelSnpFromExistingDataSet(dataSet, existingDataSet);
+            /*removeDataSetModelSnpFromExistingDataSet(dataSet, existingDataSet);
             for (Model addingModel : dataSet.getModels()) {
                 Model existingModel = existingDataSet.getModelElseNull(addingModel.getStudy(),
                                                                        addingModel.getSet(),
@@ -185,16 +191,17 @@ public class DataRetrievalWithThreadPool {
                     existingDataSet.removeAllSnpWithModel(existingModel);
                 }
             }
-            existingDataSet.addAllSnpWithModels(dataSet);
-            Singleton.getDataModel().addDataSet(geneName, existingDataSet);
+            System.out.println("\t\tBefore adding all snp with models");
+            //existingDataSet.addAllSnpWithModels(dataSet);*/
+            existingDataSet.addDataSetModels(dataSet.getModels());
+            Singleton.getDataModel().updateDataSet(geneName, existingDataSet, dataSet);
 
         } else {// blow away existing data set w/o informing user as replacing it
             Singleton.getDataModel().addDataSet(geneName, dataSet);
         }
-        System.out.println("Retrieval completed for " + queryId + "\tgene " + geneName);
         Singleton.getState().retrievalCompleted(geneName, dataSet.getSnps().size(), SearchStatus.SUCCESS, queryId);
     }
-
+    
     
     /**
      * Retrieves a dataSet containing the SNP for requestedGeneOrSnp
