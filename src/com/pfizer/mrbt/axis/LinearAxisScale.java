@@ -2,8 +2,9 @@
  * Linear axis scaling and conversion of values
  */
 
-package com.pfizerm.mrbt.axis;
+package com.pfizer.mrbt.axis;
 
+import com.pfizer.mrbt.axis.AxisScale;
 import com.pfizer.mrbt.genomics.Singleton;
 import com.pfizer.mrbt.genomics.state.State;
 import com.pfizer.mrbt.genomics.state.ViewData;

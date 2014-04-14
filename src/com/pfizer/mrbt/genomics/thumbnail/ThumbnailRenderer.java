@@ -13,7 +13,7 @@ import com.pfizer.mrbt.genomics.state.SelectedGeneAnnotation;
 import com.pfizer.mrbt.genomics.state.State;
 import com.pfizer.mrbt.genomics.state.ViewData;
 
-import com.pfizerm.mrbt.axis.AxisScale;
+import com.pfizer.mrbt.axis.AxisScale;
 import java.awt.Color;
 import java.awt.Component;
 

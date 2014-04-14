@@ -2,9 +2,10 @@
  * Linear axis scaling and conversion of values
  */
 
-package com.pfizerm.mrbt.axis;
+package com.pfizer.mrbt.axis;
 
 
+import com.pfizer.mrbt.axis.AxisScale;
 import com.pfizer.mrbt.genomics.Singleton;
 import com.pfizer.mrbt.genomics.state.State;
 import com.pfizer.mrbt.genomics.state.View;
@@ -235,6 +236,21 @@ public class LogAxisScale extends AxisScale {
             return pixel;
         }
     }
+
+        /**
+     * Not implemented for the logAxisScale
+     * @param value
+     * @param image
+     * @param startPadSize
+     * @param endPadSize
+     * @return 
+     */
+    @Override
+    public int getPaddedRawPixelFromValue(double value, JComponent image, int startPadSize, int endPadSize) {
+        System.out.println("This function is not implemented for the log axis scale!!!");
+        return getRawPixelFromValue(value, image);
+    }
+    
 
     /**
      * If the image is on the buffered image, returns the value from the pixel.

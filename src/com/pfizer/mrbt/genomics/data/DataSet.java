@@ -391,8 +391,20 @@ public class DataSet {
      */
     public void addDataSetModels(CopyOnWriteArrayList<Model> models) {
         for(Model model : models) {
-            this.addModel(model);
+            if(! alreadyContainsModel(model)) {
+                this.addModel(model);
+            }
         }
+    }
+    
+    protected boolean alreadyContainsModel(Model modelToAdd) {
+        for(Model model : this.getModels()) {
+            if(model.getModel().equals(modelToAdd.getModel()) &&
+               model.getSet().equals(modelToAdd.getSet())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**

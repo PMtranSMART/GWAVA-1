@@ -8,7 +8,7 @@ import com.pfizer.mrbt.genomics.data.DataSet;
 import com.pfizer.mrbt.genomics.data.Model;
 import com.pfizer.mrbt.genomics.data.SNP;
 import com.pfizer.mrbt.genomics.data.XYPoint;
-import com.pfizerm.mrbt.axis.AxisScale;
+import com.pfizer.mrbt.axis.AxisScale;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;

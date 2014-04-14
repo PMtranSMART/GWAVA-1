@@ -16,7 +16,7 @@ import com.pfizer.mrbt.genomics.legend.LegendPanel;
 import com.pfizer.mrbt.genomics.state.SelectedGeneAnnotation;
 import com.pfizer.mrbt.genomics.state.StateListener;
 import com.pfizer.mrbt.genomics.state.View;
-import com.pfizerm.mrbt.axis.AxisScale;
+import com.pfizer.mrbt.axis.AxisScale;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

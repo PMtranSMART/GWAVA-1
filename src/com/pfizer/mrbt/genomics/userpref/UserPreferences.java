@@ -60,7 +60,7 @@ public class UserPreferences {
     
     private Color annotationColor   = PALE_BLUE;
     private Color annotationTextColor = PURPLE3;
-    private Color currentAnnotationColor = PALE_BLUE;
+    private Color currentAnnotationColor = Color.BLUE;
     private Color selectedAnnotationColor = ORANGE4;
     private Color closestAnnotationColor    = Color.MAGENTA;
     private Color interiorAnnotationColor   = Color.RED;

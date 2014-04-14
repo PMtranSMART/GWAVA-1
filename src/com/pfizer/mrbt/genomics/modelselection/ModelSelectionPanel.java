@@ -14,7 +14,7 @@ import com.pfizer.mrbt.genomics.heatmap.HeatmapPanel;
 import com.pfizer.mrbt.genomics.heatmap.HeatmapTableModel;
 import com.pfizer.mrbt.genomics.state.StateListener;
 import com.pfizer.mrbt.genomics.state.ViewData;
-import com.pfizerm.mrbt.axis.AxisScale;
+import com.pfizer.mrbt.axis.AxisScale;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;

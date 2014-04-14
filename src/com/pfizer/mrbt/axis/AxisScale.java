@@ -1,7 +1,7 @@
 /*
  * The interface to define the linear and log values of the range of values
  */
-package com.pfizerm.mrbt.axis;
+package com.pfizer.mrbt.axis;
 
 import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
