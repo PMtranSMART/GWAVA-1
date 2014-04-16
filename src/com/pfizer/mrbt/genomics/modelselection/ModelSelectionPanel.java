@@ -153,7 +153,7 @@ public class ModelSelectionPanel extends JPanel {
             gbc.fill = GridBagConstraints.VERTICAL;
             topButtonPanel.add(getRemoveSelectionButton(), gbc);
 
-            gbc.gridx = 20;
+            gbc.gridx = 10;
             gbc.gridy = 20;
             gbc.fill = GridBagConstraints.VERTICAL;
             topButtonPanel.add(getRemoveAllButton(), gbc);

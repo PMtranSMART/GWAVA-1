@@ -27,6 +27,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
@@ -202,7 +203,7 @@ public class ControlsPanel extends JComponent {
         ArrayList<DataPointEntry> foundRsIdEntries = new ArrayList<DataPointEntry>();
         View view = Singleton.getState().getMainView();
         DataSet dataSet = view.getDataSet();
-        ArrayList<SNP> snps = dataSet.getSnps();
+        CopyOnWriteArrayList<SNP> snps = dataSet.getSnps();
         ArrayList<Model> models = view.getModels();
         for (SNP snp : snps) {
             int oneRsId = snp.getRsId();

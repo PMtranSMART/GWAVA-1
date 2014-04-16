@@ -17,7 +17,7 @@ public class DataSet {
     public final static double NO_VALUE = -999.0;
     public final static int UNKNOWN = -1;
       private CopyOnWriteArrayList<Model> models = new CopyOnWriteArrayList<Model>();
-      private ArrayList<SNP> snps = new ArrayList<SNP>();
+      private CopyOnWriteArrayList<SNP> snps = new CopyOnWriteArrayList<SNP>();
       private GeneRange geneRange;
       private NumericRange xAxisRange = null;
       private DbSnpSourceOption dbSnpOption = null;
@@ -96,12 +96,20 @@ public class DataSet {
        * Assigns a set of SNP to the dataset
        * @param snps 
        */
-      public void setSNPs(ArrayList<SNP> snps) {
+      public void setSNPs(CopyOnWriteArrayList<SNP> snps) {
           this.snps = snps;
       }
       
-      public ArrayList<SNP> getSnps() {
+      public CopyOnWriteArrayList<SNP> getSnps() {
           return snps;
+      }
+      
+      public synchronized void updateSnps(CopyOnWriteArrayList<SNP> updatingSnps) {
+          for(SNP updatingSnp : updatingSnps) {
+              if(! snps.contains(updatingSnp)) {
+                  snps.add(updatingSnp);
+              }
+          }
       }
       
       public void setXAxisRange(NumericRange xAxisRange) {
@@ -309,7 +317,7 @@ public class DataSet {
         ArrayList<GeneAnnotation> geneAnnotations = new ArrayList<GeneAnnotation>();
         dummyDataSet.setGeneAnnotations(geneAnnotations);
         dummyDataSet.setModels(new CopyOnWriteArrayList<Model>());
-        dummyDataSet.setSNPs(new ArrayList<SNP>());
+        dummyDataSet.setSNPs(new CopyOnWriteArrayList<SNP>());
         dummyDataSet.setRecombinationRate(new ArrayList<SnpRecombRate>(), 8f);
         //QueryParameterFetch queryParameterFetch = new QueryParameterFetch();
         //GeneSourceOption defaultGeneSourceOption = queryParameterFetch.getGeneSources().get(0);

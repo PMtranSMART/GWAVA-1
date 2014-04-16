@@ -176,9 +176,14 @@ public class DataRetrievalWithThreadPool {
         
         //Singleton.getDataModel().updateDataSets(dataSet, geneName);
         //String geneName = dataSet.getGeneRange().getName();
+        System.out.println("\nPostprocessing new data set " + geneName + "\t" + dataSet.getSnps().size());
         DataSet existingDataSet = Singleton.getDataModel().getDataSet(geneName);
+        if(existingDataSet != null) {
+            System.out.println("Postprocessing existing data set " + geneName + "\t" + existingDataSet.getSnps().size());
+        }
         if (existingDataSet == null) {  // new gene
             Singleton.getDataModel().addDataSet(geneName, dataSet);
+            System.out.println("Postprocessing adding " + geneName + "\t" + Singleton.getDataModel().getDataSet(geneName).getSnps().size());
 
         } else if (existingDataSet.hasSameRadiusDbSnpGeneSource(dataSet)) {
             /* allows new models for same gene to be added if same radius/dbSnp/GeneSource */
@@ -194,10 +199,13 @@ public class DataRetrievalWithThreadPool {
             System.out.println("\t\tBefore adding all snp with models");
             //existingDataSet.addAllSnpWithModels(dataSet);*/
             existingDataSet.addDataSetModels(dataSet.getModels());
+            existingDataSet.updateSnps(dataSet.getSnps());
             Singleton.getDataModel().updateDataSet(geneName, existingDataSet, dataSet);
+            System.out.println("Postprocessing merging " + geneName + "\t" + existingDataSet.getSnps().size());
 
         } else {// blow away existing data set w/o informing user as replacing it
             Singleton.getDataModel().addDataSet(geneName, dataSet);
+            System.out.println("Postprocessing blowAway  " + geneName + "\t" + existingDataSet.getSnps().size());
         }
         Singleton.getState().retrievalCompleted(geneName, dataSet.getSnps().size(), SearchStatus.SUCCESS, queryId);
     }
