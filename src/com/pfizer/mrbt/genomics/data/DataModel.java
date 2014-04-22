@@ -328,43 +328,7 @@ public class DataModel {
         return dataRetrievalWithThreadPool;
     }
     
-    /**
-     * Updates the dataModel with the dataSet.  
-     * If there is no dataSet with the given geneName, it adds it.
-     * else If the dataSet has different radius, it replaces it
-     * else adds the model data to the same genename dataSet
-     * @param dataSet
-     * @param geneName 
-     */
-     /*public void updateDataSets(DataSet dataSet, String geneName) {
-        DataSet existingDataSet = Singleton.getDataModel().getDataSet(geneName);
-        if (existingDataSet == null) {  // new gene
-            System.out.println("\tNull existing data set");
-            Singleton.getDataModel().addDataSet(geneName, dataSet);
 
-        } else if (sameRadiusDbSnpGeneSource(dataSet, existingDataSet)) {
-            // allows new models for same gene to be added if same radius/dbSnp/GeneSource 
-            System.out.println("\tsame radius data set");
-            removeDataSetModelSnpFromExistingDataSet(dataSet, existingDataSet);
-            for (Model addingModel : dataSet.getModels()) {
-                Model existingModel = existingDataSet.getModelElseNull(addingModel.getStudy(),
-                                                                       addingModel.getSet(),
-                                                                       addingModel.getModel());
-                if (existingModel != null) {
-                    existingDataSet.removeAllSnpWithModel(existingModel);
-                }
-            }
-            System.out.println("\t\tBefore adding all snp with models");
-            existingDataSet.addAllSnpWithModels(dataSet);
-            System.out.println("\t\tAfter adding all snp with models");
-            Singleton.getDataModel().addDataSet(geneName, existingDataSet);
-            System.out.println("\t\tAdded new dataset back to data model");
-
-        } else {// blow away existing data set w/o informing user as replacing it
-            System.out.println("\tblowing away");
-            Singleton.getDataModel().addDataSet(geneName, dataSet);
-        }*/
-    
     /**
      * Returns the number of entries in the list
      * @return 

@@ -18,7 +18,7 @@ public class DataSet {
     public final static int UNKNOWN = -1;
       private CopyOnWriteArrayList<Model> models = new CopyOnWriteArrayList<Model>();
       private CopyOnWriteArrayList<SNP> snps = new CopyOnWriteArrayList<SNP>();
-      private GeneRange geneRange;
+      private GeneRange geneAnnotationRange;
       private NumericRange xAxisRange = null;
       private DbSnpSourceOption dbSnpOption = null;
       private GeneSourceOption geneSourceOption = null;
@@ -50,11 +50,42 @@ public class DataSet {
        * @return 
        */
     public GeneRange getGeneRange() {
-        return geneRange;
+        return geneAnnotationRange;
     }
 
     public void setGeneRange(GeneRange geneRange) {
-        this.geneRange = geneRange;
+        this.geneAnnotationRange = geneRange;
+    }
+    
+    /**
+     * The xRange is the displayed range of values.  The geneAnnotationRange is
+     * that retrieved for the range of annotations fetched. If the xRange exceeds
+     * that of the geneAnnotationRange it returns true else returns false
+     * @return 
+     */
+    public boolean xRangeExceedsGeneAnnotationRange() {
+        if(xAxisRange.getMin() < geneAnnotationRange.getStart() ||
+           xAxisRange.getMax() > geneAnnotationRange.getEnd()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Updates the geneAnnotationRange with the max entent of the geneAnnotationRange and newGeneRange
+     * @param newGeneRange
+     * @return true if the gene range has been changed
+     */
+    public boolean updateGeneRange(GeneRange newGeneRange) {
+        boolean updated = false;
+        if(newGeneRange.getStart() < this.geneAnnotationRange.getStart() ||
+           newGeneRange.getEnd() > this.geneAnnotationRange.getEnd()) {
+            geneAnnotationRange.setStart( Math.min(newGeneRange.getStart(), this.geneAnnotationRange.getStart()));
+            geneAnnotationRange.setEnd( Math.max(newGeneRange.getEnd(), this.geneAnnotationRange.getEnd()));
+            updated = true;
+        }
+        return updated;
     }
       
       /**
@@ -114,6 +145,23 @@ public class DataSet {
       
       public void setXAxisRange(NumericRange xAxisRange) {
           this.xAxisRange = xAxisRange;
+      }
+      
+      /**
+       * Expands xAxisRange if necessary to include the new XAxisRange.
+       * @return Returns true if updated
+       * @param newXAxisRange 
+       */
+      public boolean updateXAxisRange(NumericRange newXAxisRange) {
+          boolean updated = false;
+          if(newXAxisRange.getMin() < xAxisRange.getMin() ||
+             newXAxisRange.getMax() > xAxisRange.getMax()) {
+              double xMin = Math.min(xAxisRange.getMin(), newXAxisRange.getMin());
+              double xMax = Math.max(xAxisRange.getMax(), newXAxisRange.getMax());
+              xAxisRange = new NumericRange(xMin, xMax);
+              updated = true;
+          }
+          return updated;
       }
       
       /*public void setSnpModel2PvalMap(SnpModel2PvalMap snpModel2Pval) {
@@ -421,13 +469,13 @@ public class DataSet {
      * @return 
      */
     public boolean hasSameRadiusDbSnpGeneSource(DataSet otherDataSet) {
-        return (this.geneRange.getRadius()    == otherDataSet.getGeneRange().getRadius() &&
+        return (this.geneAnnotationRange.getRadius()    == otherDataSet.getGeneRange().getRadius() &&
                 this.dbSnpOption.getId()      == otherDataSet.getDbSnpOption().getId() &&
                 this.geneSourceOption.getId() == otherDataSet.getGeneSourceOption().getId());
     }
     
     public boolean hasSameRadiusDbSnpGenesource(int basePairRadius, DbSnpSourceOption dbSnpSourceOption, GeneSourceOption geneSourceOption) {
-        return (this.geneRange.getRadius()    == basePairRadius &&
+        return (this.geneAnnotationRange.getRadius()    == basePairRadius &&
                 this.dbSnpOption.getId()      == dbSnpSourceOption.getId() &&
                 this.geneSourceOption.getId() == geneSourceOption.getId());
     }
