@@ -25,9 +25,9 @@ import javax.swing.event.ChangeEvent;
 public class UserPreferences {
 
     private String filePath = "";
-    private boolean useArithmeticMean = true;
+    /*private boolean useArithmeticMean = true;
     private boolean useRatios = true;
-    private boolean useLogXScale = true;
+    private boolean useLogXScale = true;*/
     private float minTopNegLogPvalAxis = 0f;
     private float minTopRecombinationRateAxis = 0f;
     private double splitPaneFraction = 0.8;
@@ -73,9 +73,9 @@ public class UserPreferences {
     private Color thumbnailSelectionColor = Color.GRAY;
     private Color thumbnailHorizontalBandColor = Color.LIGHT_GRAY;
     
-    private int DEFAULT_HEAT_MAP_RADIUS = 10000000;
-    private int DEFAULT_HEAT_MAP_FUNCTION = HeatmapParameters.FUNCTION_MAXIMUM;
-    private int DEFAULT_HEAT_MAP_TOP_N_INDEX   = 0;
+    private final int DEFAULT_HEAT_MAP_RADIUS = 10000000;
+    private final int DEFAULT_HEAT_MAP_FUNCTION = HeatmapParameters.FUNCTION_MAXIMUM;
+    private final int DEFAULT_HEAT_MAP_TOP_N_INDEX   = 0;
 
     private int heatmapRadius    = DEFAULT_HEAT_MAP_RADIUS;
     private int heatmapFunction  = DEFAULT_HEAT_MAP_FUNCTION;
@@ -91,7 +91,7 @@ public class UserPreferences {
         loadUserPreferences();
     }
 
-    private ArrayList<UserPrefListener> listeners = new ArrayList<UserPrefListener>();
+    private final ArrayList<UserPrefListener> listeners = new ArrayList<UserPrefListener>();
     
     public String getFilePath() {
         return filePath;

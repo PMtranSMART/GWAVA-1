@@ -138,11 +138,10 @@ public class DataRetrievalWithThreadPool {
                                        dbSnpSourceOption,
                                        geneSourceOption,
                                        basePairRadius);
-
                 DataSet existingDataSet = Singleton.getDataModel().getDataSet(geneRequestFormatted);
                 System.out.println("Model " + modelOptions.get(0).toString());
                 if (existingDataSet == null || ! existingDataSet.hasSameRadiusDbSnpGenesource(basePairRadius, dbSnpSourceOption, geneSourceOption)) {
-                
+                    assert (dataSet.getChromosome() != 0) : "First data set chromosome 0 " + modelOptions.get(0).toString();
                     ArrayList<GeneAnnotation> geneAnnotations = retrieveAnnotation(dataSet, geneSourceOption);
                     dataSet.setGeneAnnotations(geneAnnotations);
 
@@ -150,25 +149,13 @@ public class DataRetrievalWithThreadPool {
                     float maxRecombRate = computeMaxRecombinationRate(recombRate);
                     dataSet.setRecombinationRate(recombRate, maxRecombRate);
                 } else if(exceedsPreviousAnnotationBounds(dataSet, existingDataSet)) {
-                    /*if(dataSet==null) {
-                        System.err.println("One of them is null");
-                    }
-                    System.out.println("Existing bounds [" + existingDataSet.getXRange().getMin() + "\t" +
-                                        existingDataSet.getXRange().getMax());
-                    System.out.println("Incoming bounds [" + dataSet.getXRange().getMin() + "\t" +
-                                        dataSet.getXRange().getMax());
-                    existingDataSet.updateXAxisRange(dataSet.getXRange());
-                    System.out.println("to [" + existingDataSet.getXRange().getMin() + "\t" +
-                                        existingDataSet.getXRange().getMax());*/
-                    /*ArrayList<GeneAnnotation> geneAnnotations = retrieveAnnotation(existingDataSet, geneSourceOption);
-                    existingDataSet.setGeneAnnotations(geneAnnotations);*/
                 }
                 
                 postProcessDataSet(dataSet, queryNumber, geneRequestFormatted);
                 
             } catch (RetrievalException rex) {
                 System.err.println("Retrieval exception\n" + rex.toString());
-                rex.printStackTrace();
+                //rex.printStackTrace();
                 Singleton.getState().retrievalCompleted(geneRequestFormatted, 0, SearchStatus.FAILED, queryNumber);
             }
         }
@@ -223,8 +210,9 @@ public class DataRetrievalWithThreadPool {
             System.out.println("Incoming data range [" + dataSet.getXRange().getMin() + "\t" + dataSet.getXRange().getMax() + "]");
             boolean updatedXRange = existingDataSet.updateXAxisRange(dataSet.getXRange());
             System.out.println("Existing data range [" + existingDataSet.getXRange().getMin() + "\t" + existingDataSet.getXRange().getMax() + "]");
-            System.err.println("Updated XRange for " + dataSet.getModels().get(0).toString() + "\t" + updatedXRange);
+            //System.err.println("Updated XRange for " + dataSet.getModels().get(0).toString() + "\t" + updatedXRange);
             if(existingDataSet.xRangeExceedsGeneAnnotationRange()) {
+                assert (existingDataSet.getChromosome()!= 0) : " xRange changed chromosome 0";
                 ArrayList<GeneAnnotation> geneAnnotations = retrieveAnnotation(existingDataSet, existingDataSet.getGeneSourceOption());
                 System.out.println("Fetched gene annotations");
                 existingDataSet.setGeneAnnotations(geneAnnotations);
@@ -286,6 +274,7 @@ public class DataRetrievalWithThreadPool {
      */
     protected ArrayList<GeneAnnotation> retrieveAnnotation(DataSet dataSet, GeneSourceOption geneSourceOption) throws RetrievalException {
         int chromosome = dataSet.getChromosome();
+        assert (chromosome != 0) : "Chromosome = 0 from retrieveAnnotation";
         /*int start      = dataSet.getGeneRange().getStart();
         int end        = dataSet.getGeneRange().getEnd();*/
         double start = dataSet.getXRange().getMin();

@@ -134,9 +134,16 @@ public class TransmartSNPDataFetchGeneQuery extends TransmartSNPDataFetch {
             throw new RetrievalException("Failed to parse gene search " + ex.getMessage(), RetrievalMethod.GENE_SEARCH, params);
         }
         
+        if(queryResults.isEmpty()) {
+            for(String param : params.keySet()) {
+                System.out.println("Param " + param + "-->" + params.get(param));
+            }
+            throw new RetrievalException("No rows returned", params);
+        }
         for(List<String> row : queryResults) {
             if(rowIndex == 0) {
                 chromosome = DataModel.parseChromosomeStr(row.get(TransmartServicesParameters.GENE_SEARCH_CHROMOSOME_COL));
+                assert (chromosome != 0) : "Chromosome is 0 " + row + "\t[" + row.get(TransmartServicesParameters.GENE_SEARCH_CHROMOSOME_COL) + "]";
                 dataSet.setChromosome(chromosome);
             }
             ParsedStudySetModel studySetModel = parseOutStudySetModel(row);

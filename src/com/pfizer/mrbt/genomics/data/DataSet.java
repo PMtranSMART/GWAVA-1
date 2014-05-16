@@ -22,7 +22,7 @@ public class DataSet {
       private NumericRange xAxisRange = null;
       private DbSnpSourceOption dbSnpOption = null;
       private GeneSourceOption geneSourceOption = null;
-      private int chromosome;
+      private int chromosome = UNKNOWN;
       //private SnpModel2PvalMap snpModel2Pval = new SnpModel2PvalMap();
       private int id;
       private ArrayList<SnpRecombRate> snpRecombRates = null;
