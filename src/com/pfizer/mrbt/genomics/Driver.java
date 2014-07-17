@@ -43,7 +43,7 @@ public class Driver implements Runnable {
 	private JFrame thumbnailFrame;
 
 	private JFrame geneModelFrame;
-	public final static String VERSION = "2.0c";
+	public final static String VERSION = "2.1g";
     public final String GUAVA_16_ICON = "/images/guava_16.jpg";
 	private final String[] args;
 	private ThumbnailPanel thumbnailPanel;
