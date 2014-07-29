@@ -41,7 +41,7 @@
     <property name="project.version"            value="2.1g" />
     <property name="webstart.name"              value="pfizerWebstart"/>
 
-    <property name="webstart.root"              value="http://clinux22.pfizer.com http://amrndhl693.pfizer.com"/>
+    <property name="webstart.root"              value="http://clinux22.pfizer.com http://amre1al336.pcld.pfizer.com:8080/pfizerWebstart http://amrndhl693.pfizer.com http://amrndhl1040.pfizer.com:10080/pfizerWebstart http://amrndhl1040.pfizer.com:8000/gwava /"/>
 
 
     <!-- project modules   -->
@@ -308,10 +308,12 @@
             </path>
         </signjar>
     </target>
-    <target name="justwar">
+    <target name="justwar" depends="signJar">
         <jar jarfile="${gwava.dist.dir}/${webstart.name}.war" basedir="${gwava.build.dir}" />
     </target>
-
+    <target name="transmartwar" depends="signJar">
+        <jar jarfile="${gwava.dist.dir}/${webstart.name}.war" basedir="${gwava.build.dir}/dist" />
+    </target>
 
     <!--==================================================================-->
     <!--===================== cleans build directory ==========================-->
@@ -324,13 +326,13 @@
     <target name="unsignjar" description="call macro to unsign jar">
         <for param="file">
             <path>
-                <fileset dir="${gwava.builds.dist.lib.dir}" includes="**/*.jar"/> <!-- pvh changed to builds not build -->
+                <fileset dir="${gwava.build.dist.lib.dir}" includes="**/*.jar"/> <!-- pvh changed to builds not build -->
             </path>
             <sequential>
                 <unsignjar jar="@{file}"/>
             </sequential>
         </for>
-        <unsignjar jar="${gwava.builds.dist.dir}/${project.name}.jar"/> <!-- pvh changed to builds not build -->
+        <unsignjar jar="${gwava.build.dist.dir}/${project.name}${project.version}.jar"/> <!-- pvh changed to builds not build -->
     </target>
 
     <target name="addManifestToLib" depends="compile-gwava" description="call macro to unjar and add manifest to all library jars">

@@ -61,9 +61,20 @@ public class Driver implements Runnable {
 
         if (args.length > 0 && args[0].equalsIgnoreCase("-services=transmart")) {
             //Singleton.getState().setDataMode(State.TRANSMART_SERVICES_MODE);
+            DataRetrievalInterface webServices = new TransmartWebServices(Environment.PRODUCTION);
+            Singleton.getDataModel().setWebServices(webServices);
+        } 
+        else if (args.length > 0 && args[0].equalsIgnoreCase("-services=transmartstg")) {
+			/*Singleton.getState().setDataMode(
+					State.TRANSMART_DEV_SERVICES_MODE);*/
             DataRetrievalInterface webServices = new TransmartWebServices(Environment.STAGE);
             Singleton.getDataModel().setWebServices(webServices);
-        } else if (args.length > 0 && args[0].equalsIgnoreCase("-services=transmartdev")) {
+	} else if (args.length > 0 && args[0].equalsIgnoreCase("-services=transmarttst")) {
+			/*Singleton.getState().setDataMode(
+					State.TRANSMART_DEV_SERVICES_MODE);*/
+            DataRetrievalInterface webServices = new TransmartWebServices(Environment.TEST);
+            Singleton.getDataModel().setWebServices(webServices);
+	} else if (args.length > 0 && args[0].equalsIgnoreCase("-services=transmartdev")) {
 				/*Singleton.getState().setDataMode(
 						State.TRANSMART_DEV_SERVICES_MODE);*/
                 DataRetrievalInterface webServices = new TransmartWebServices(Environment.DEV);
