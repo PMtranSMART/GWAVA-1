@@ -1,3 +1,4 @@
+
 package com.pfizer.mrbt.genomics.TransmartClient;
 
 import com.pfizer.mrbt.genomics.Singleton;
@@ -11,11 +12,10 @@ import java.util.Map;
  */
 
 /**
- *
+ * 
  * @author henstockpv
  */
 public class TransmartServicesParameters {
-    
     public final static int PORT = 8080;
     /*public final static String HOST = "amre1al336.pcld.pfizer.com";
     public final static String SERVER_URL = "http://" + HOST + ":" + PORT + "/transmartPfizer/webservice/";*/
