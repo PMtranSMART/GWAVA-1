@@ -55,7 +55,7 @@ public class TransmartQueryParameterFetch {
         }
         paramMap.put("dataType", TransmartServicesParameters.MODEL_FETCH_GWAS_DATA_TYPE + "");
         String queryStrWtihParams = TransmartUtil.addParametersToUrl(queryStr, paramMap);
-        System.out.println("Fetch Model options query:" + queryStrWtihParams);
+        System.out.println("Fetch Model options query: [" + queryStrWtihParams + "]");
         List<ModelOption> modelOptions = new ArrayList<ModelOption>();
         try {
             String xmlResult = TransmartUtil.fetchResult(queryStrWtihParams);
@@ -212,14 +212,13 @@ public class TransmartQueryParameterFetch {
      * @return 
      */
     protected String getUserName() {
-        String userName = new com.sun.security.auth.module.NTSystem().getName();
-        if(userName != null && ! userName.isEmpty()) {
+        String userName = System.getProperty("user.name");
+        if(userName != null && ! userName.isEmpty()) { 
             return userName;
         }
-        
-        userName = System.getProperty("user.name");
+        userName = new com.sun.security.auth.module.NTSystem().getName();
         if(userName != null && ! userName.isEmpty()) {
-            return userName;
+            return userName;  
         }
         return "";
     }

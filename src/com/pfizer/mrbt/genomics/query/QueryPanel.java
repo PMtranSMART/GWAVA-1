@@ -152,6 +152,7 @@ public class QueryPanel extends JComponent {
             rex.getMessage(),
             "Initialization failed: " + rex.getRetrievalMethod().toString(),
             JOptionPane.ERROR_MESSAGE);
+        rex.printStackTrace();
         System.err.println("Initialization failed");
         System.err.println(rex.toString());
     }

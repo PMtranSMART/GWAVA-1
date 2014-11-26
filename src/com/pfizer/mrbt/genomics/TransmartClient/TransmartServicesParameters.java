@@ -20,14 +20,35 @@ public class TransmartServicesParameters {
     /*public final static String HOST = "amre1al336.pcld.pfizer.com";
     public final static String SERVER_URL = "http://" + HOST + ":" + PORT + "/transmartPfizer/webservice/";*/
 
-    public final static String STAGE_HOST = "amre1al306.pcld.pfizer.com";
-    //public final static String STAGE_HOST = "transmart.pfizer.com";
-    public final static String DEV_HOST   = "amre1al336.pcld.pfizer.com";
+    public final static String PRODUCTION_HOST = "amrndhl1038.pfizer.com";
+    public final static String PRODUCTION_PORT = "10080";
+    //public final static String PRODUCTION_HOST = "transmart.pfizer.com";
+    //public final static String PRODUCTION_HOST = "170.116.232.213";
+    public final static String PRODUCTION_URL = "http://" + PRODUCTION_HOST + ":" + PRODUCTION_PORT + "/transmart/webservice/";
+    
+    
+    public final static String OLD_STAGE_HOST = "amre1al306.pcld.pfizer.com";
+    public final static String STAGE_HOST = "amrndhl1040.pfizer.com";
+    public final static String STAGE_PORT = "8000";
+    public final static String OLD_STAGE_URL  = "http://" + STAGE_HOST + ":" + PORT + "/transmartPfizer/webservice/";
     public final static String STAGE_URL  = "http://" + STAGE_HOST + ":" + PORT + "/transmart/webservice/";
-    public final static String STAGE_URL2  = "http://" + STAGE_HOST + ":" + PORT + "/transmartPfizer/webservice/";
+
+    public final static String DEV_HOST   = "amre1al336.pcld.pfizer.com";
     public final static String DEV_URL    = "http://" + DEV_HOST   + ":" + PORT + "/transmart/webservice/";  // yes there are 2 dev servers
-    public final static String DEV_URL2    = "http://" + DEV_HOST   + ":" + PORT + "/transmartPfizer/webservice/";
-    //public final static String SERVER_URL = "http://" + STAGE_HOST + ":" + PORT + "/transmartPfizer/webservice/";
+    
+        // new prod
+        //String path6 = "http://amrndhl1038.pfizer.com:10080/transmart/webservice/getSecureModelInfoByDataType?dataType=1&user=henstockpv";
+        // new stage
+        //String path7 = "http://amrndhl1040.pfizer.com:8000/transmart/webservice/getSecureModelInfoByDataType?dataType=1&user=henstockpv";
+    
+
+        // new prod
+        //String path6 = "http://amrndhl1038.pfizer.com:10080/transmart/webservice/getSecureModelInfoByDataType?dataType=1&user=henstockpv";
+        // new stage
+        //String path7 = "http://amrndhl1040.pfizer.com:8000/transmart/webservice/getSecureModelInfoByDataType?dataType=1&user=henstockpv";
+
+    
+    
 
     //public final static String MODEL_FETCH_METHOD = "getModelInfoByDataType";
     public final static String MODEL_FETCH_METHOD = "getSecureModelInfoByDataType";
@@ -178,8 +199,10 @@ public class TransmartServicesParameters {
      */
     public static String getServerURL(Environment environment) {
         switch(environment) {
+            case PRODUCTION:
+                return PRODUCTION_URL;
             case STAGE:
-                return STAGE_URL2;
+                return STAGE_URL;
             case DEV:
                 return DEV_URL;
             default:

@@ -563,8 +563,8 @@ public class ModelSelectionPanel extends JPanel {
             }
             heatmapFrame.setLocation(800, 150);
             heatmapFrame.pack();
-            heatmapFrame.setVisible(true);
         }
+        heatmapFrame.setVisible(true);
     }    
     
     /*protected void createHeatMapFrame() throws Exception {

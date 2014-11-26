@@ -680,6 +680,7 @@ public class PingPongBufferPane extends JComponent {
             "Initialization failed: " + rex.getRetrievalMethod().toString(),
             JOptionPane.ERROR_MESSAGE);
         System.err.println("Initialization failed");
+        rex.printStackTrace();
         System.err.println(rex.toString());
     }
 

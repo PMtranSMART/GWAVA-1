@@ -16,6 +16,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
@@ -43,7 +44,7 @@ public class Driver implements Runnable {
 	private JFrame thumbnailFrame;
 
 	private JFrame geneModelFrame;
-	public final static String VERSION = "2.1g";
+	public final static String VERSION = "2.1i";
     public final String GUAVA_16_ICON = "/images/guava_16.jpg";
 	private final String[] args;
 	private ThumbnailPanel thumbnailPanel;
@@ -60,13 +61,13 @@ public class Driver implements Runnable {
 		StateController stateController = new StateController();
 
         if (args.length > 0 && args[0].equalsIgnoreCase("-services=transmart")) {
-            //Singleton.getState().setDataMode(State.TRANSMART_SERVICES_MODE);
-            DataRetrievalInterface webServices = new TransmartWebServices(Environment.STAGE);
+            DataRetrievalInterface webServices = new TransmartWebServices(Environment.PRODUCTION);
             Singleton.getDataModel().setWebServices(webServices);
         } else if (args.length > 0 && args[0].equalsIgnoreCase("-services=transmartdev")) {
-				/*Singleton.getState().setDataMode(
-						State.TRANSMART_DEV_SERVICES_MODE);*/
                 DataRetrievalInterface webServices = new TransmartWebServices(Environment.DEV);
+                Singleton.getDataModel().setWebServices(webServices);
+        } else if (args.length > 0 && args[0].equalsIgnoreCase("-services=transmartstage")) {
+                DataRetrievalInterface webServices = new TransmartWebServices(Environment.STAGE);
                 Singleton.getDataModel().setWebServices(webServices);
 		} else {
             System.err.println("Driver does not have -services=<data_retrieval_interface> in args[0]");
@@ -133,7 +134,11 @@ public class Driver implements Runnable {
         frame = Singleton.getMainFrame();
         frame.setTitle("GWAVA: Genome-Wide Association Visual Analyzer "
 				+ VERSION + " using " + dataRetrievalSource);
-		/*
+
+        /*JOptionPane.showMessageDialog(frame,
+            "Your username is [" + System.getProperty("user.name")+ "].");*/
+
+        /*
 		 * UserPreferences userPref = Singleton.getUserPreferences();
 		 * userPref.loadUserPreferences();
 		 */
