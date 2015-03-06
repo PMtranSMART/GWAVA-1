@@ -1,4 +1,3 @@
-
 package com.pfizer.mrbt.genomics.TransmartClient;
 
 import com.pfizer.mrbt.genomics.Singleton;
@@ -12,26 +11,29 @@ import java.util.Map;
  */
 
 /**
- * 
+ *
  * @author henstockpv
  */
 public class TransmartServicesParameters {
+    
     public final static int PORT = 8080;
     /*public final static String HOST = "amre1al336.pcld.pfizer.com";
     public final static String SERVER_URL = "http://" + HOST + ":" + PORT + "/transmartPfizer/webservice/";*/
 
     public final static String PRODUCTION_HOST = "amrndhl1038.pfizer.com";
-    public final static String PRODUCTION_PORT = "10080";
+    public final static String PRODUCTION_PORT = "8500";
+    //public final static String PRODUCTION_PORT = "10080";  replaced 2/20/2015
     //public final static String PRODUCTION_HOST = "transmart.pfizer.com";
     //public final static String PRODUCTION_HOST = "170.116.232.213";
-    public final static String PRODUCTION_URL = "http://" + PRODUCTION_HOST + ":" + PRODUCTION_PORT + "/transmart/webservice/";
+    public final static String PRODUCTION_URL = "http://" + PRODUCTION_HOST + ":" + PRODUCTION_PORT + "/transmart/gwasWeb/";
     
     
     public final static String OLD_STAGE_HOST = "amre1al306.pcld.pfizer.com";
     public final static String STAGE_HOST = "amrndhl1040.pfizer.com";
-    public final static String STAGE_PORT = "8000";
+    public final static String STAGE_PORT = "8500";
+    //public final static String STAGE_PORT = "8000";  // replaced port 2/20/2015
     public final static String OLD_STAGE_URL  = "http://" + STAGE_HOST + ":" + PORT + "/transmartPfizer/webservice/";
-    public final static String STAGE_URL  = "http://" + STAGE_HOST + ":" + PORT + "/transmart/webservice/";
+    public final static String STAGE_URL  = "http://" + STAGE_HOST + ":" + STAGE_PORT + "/transmart/gwasWeb/";
 
     public final static String DEV_HOST   = "amre1al336.pcld.pfizer.com";
     public final static String DEV_URL    = "http://" + DEV_HOST   + ":" + PORT + "/transmart/webservice/";  // yes there are 2 dev servers

@@ -135,6 +135,11 @@ public class AxisRegionX extends AxisRegion {
         Font font = new Font("Arial", Font.BOLD, 16);
         int chromosomeNumber = Singleton.getState().getMainView().getDataSet().getChromosome();
         String str = "Position on Chromosome " + chromosomeNumber + " (Mb)";
+        if(chromosomeNumber==24) {
+            str = "Position on Chromosome X (Mb)";
+        } else if(chromosomeNumber==25) {
+            str = "Position on Chromosome Y (Mb)";
+        }
         if (str.length() > 0) {
             TextLayout tl = new TextLayout(str, font, frc);
             int x = (int) Math.round(getWidth()/2 - tl.getBounds().getWidth()/2);

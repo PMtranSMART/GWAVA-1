@@ -11,7 +11,6 @@ package com.pfizer.mrbt.genomics.webservices;
 public enum Environment {
     PRODUCTION ("Production"),
     STAGE ("Stage"),
-    TEST ("Test"),
     DEV   ("Dev");
     
     private final String displayStr;

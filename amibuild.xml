@@ -37,11 +37,11 @@
     <property name="project.title"              value="GWAVA" />
     <property name="project.rep"                value="ManhattanViz"/>
     <property name="project.name"               value="ManhattanViz" />
-    <property name="project.display.version"    value="2.1i" />
-    <property name="project.version"            value="2.1i" />
+    <property name="project.display.version"    value="2.1j" />
+    <property name="project.version"            value="2.1j" />
     <property name="webstart.name"              value="pfizerWebstart"/>
 
-    <property name="webstart.root"              value="http://clinux22.pfizer.com http://amre1al336.pcld.pfizer.com:8080/pfizerWebstart http://amrndhl693.pfizer.com http://amrndhl1040.pfizer.com:10080/pfizerWebstart http://amrndhl1038.pfizer.com:8000/gwava http://amrndhl1040.pfizer.com:8000/gwava /"/>
+    <property name="webstart.root"              value="http://clinux22.pfizer.com http://amrndhl693.pfizer.com"/>
 
 
     <!-- project modules   -->
@@ -308,12 +308,10 @@
             </path>
         </signjar>
     </target>
-    <target name="justwar" depends="signJar">
+    <target name="justwar">
         <jar jarfile="${gwava.dist.dir}/${webstart.name}.war" basedir="${gwava.build.dir}" />
     </target>
-    <target name="transmartwar" depends="signJar">
-        <jar jarfile="${gwava.dist.dir}/${webstart.name}.war" basedir="${gwava.build.dir}/dist" />
-    </target>
+
 
     <!--==================================================================-->
     <!--===================== cleans build directory ==========================-->
@@ -326,13 +324,13 @@
     <target name="unsignjar" description="call macro to unsign jar">
         <for param="file">
             <path>
-                <fileset dir="${gwava.build.dist.lib.dir}" includes="**/*.jar"/> <!-- pvh changed to builds not build -->
+                <fileset dir="${gwava.builds.dist.lib.dir}" includes="**/*.jar"/> <!-- pvh changed to builds not build -->
             </path>
             <sequential>
                 <unsignjar jar="@{file}"/>
             </sequential>
         </for>
-        <unsignjar jar="${gwava.build.dist.dir}/${project.name}${project.version}.jar"/> <!-- pvh changed to builds not build -->
+        <unsignjar jar="${gwava.builds.dist.dir}/${project.name}.jar"/> <!-- pvh changed to builds not build -->
     </target>
 
     <target name="addManifestToLib" depends="compile-gwava" description="call macro to unjar and add manifest to all library jars">
