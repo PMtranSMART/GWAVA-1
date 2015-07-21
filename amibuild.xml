@@ -37,8 +37,8 @@
     <property name="project.title"              value="GWAVA" />
     <property name="project.rep"                value="ManhattanViz"/>
     <property name="project.name"               value="ManhattanViz" />
-    <property name="project.display.version"    value="2.1j" />
-    <property name="project.version"            value="2.1j" />
+    <property name="project.display.version"    value="2.1k" />
+    <property name="project.version"            value="2.1k" />
     <property name="webstart.name"              value="pfizerWebstart"/>
 
     <property name="webstart.root"              value="http://clinux22.pfizer.com http://amrndhl693.pfizer.com"/>

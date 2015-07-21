@@ -6,6 +6,7 @@
 
 package com.pfizer.mrbt.genomics.TransmartClient;
 
+import com.pfizer.mrbt.genomics.data.DataModel;
 import com.pfizer.mrbt.genomics.webservices.DbSnpSourceOption;
 import com.pfizer.mrbt.genomics.webservices.GeneSourceOption;
 import com.pfizer.mrbt.genomics.webservices.ModelOption;
@@ -153,12 +154,18 @@ public class TransmartWebServices implements DataRetrievalInterface {
       */
     @Override
     public ArrayList<GeneAnnotation> fetchGeneAnnotations(GeneSourceOption geneSourceOption, int chromosome, int start, int end) throws RetrievalException {
-            TransmartGeneAnnotationFetch geneAnnotationFetch = new TransmartGeneAnnotationFetch(env);
+        TransmartGeneAnnotationFetch geneAnnotationFetch = new TransmartGeneAnnotationFetch(env);
         HashMap<String, String> paramMap = new HashMap<String, String>();
         //paramMap.put("GENESRCID", geneSourceOption.getId() + "");
         paramMap.put("start", start + "");
-        paramMap.put("stop",  end + "");
-        paramMap.put("chromosome", chromosome + "");
+        paramMap.put("stop", end + "");
+        if (chromosome == DataModel.X) {
+            paramMap.put("chromosome", "X");
+        } else if (chromosome == DataModel.Y) {
+            paramMap.put("chromosome", "Y");
+        } else {
+            paramMap.put("chromosome", chromosome + "");
+        }
         String geneAnnotationXmlResult = geneAnnotationFetch.fetchDataIntoQueryResult(geneSourceOption, paramMap);
         ArrayList<GeneAnnotation> geneAnnotations = geneAnnotationFetch.parseQueryResultsIntoGeneAnnotations(geneAnnotationXmlResult, paramMap);
         return geneAnnotations;
