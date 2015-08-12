@@ -2,6 +2,7 @@ package com.pfizer.mrbt.genomics;
 
 import com.pfizer.mrbt.genomics.thumbnail.ThumbnailPanel;
 import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+import com.pfizer.mrbt.genomics.TransmartClient.TransmartServicesParameters;
 import com.pfizer.mrbt.genomics.TransmartClient.TransmartWebServices;
 import com.pfizer.mrbt.genomics.data.DataModel;
 import com.pfizer.mrbt.genomics.modelselection.ModelSelectionPanel;
@@ -73,8 +74,26 @@ public class Driver implements Runnable {
             System.err.println("Driver does not have -services=<data_retrieval_interface> in args[0]");
             System.exit(1);
     	}
+        
+        if (args.length >= 7)
+        	updateTransmartUrlFromJNLP(args[6]);
+
+        if (args.length >= 8)
+        	updateTransmartUser(args[7]);
+        
+        
 		//System.out.println("Driver mode is " + Singleton.getState().getDataServicesModeName());
 		Singleton.getState().addListener(stateController);
+	}
+
+	private void updateTransmartUser(String username) {
+		TransmartServicesParameters.USERNAME = username;
+	}
+
+	private void updateTransmartUrlFromJNLP(String host) {
+        
+        TransmartServicesParameters.updateUrlAndHosts(host);
+        
 	}
 
 	/**
