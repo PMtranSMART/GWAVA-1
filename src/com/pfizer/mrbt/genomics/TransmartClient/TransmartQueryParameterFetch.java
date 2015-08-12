@@ -212,6 +212,10 @@ public class TransmartQueryParameterFetch {
      * @return 
      */
     protected String getUserName() {
+    	
+    	if (TransmartServicesParameters.USERNAME != null && TransmartServicesParameters.USERNAME.length() > 0)
+    		return TransmartServicesParameters.USERNAME;
+    	
         String userName = System.getProperty("user.name");
         if(userName != null && ! userName.isEmpty()) { 
             return userName;
