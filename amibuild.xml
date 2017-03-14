@@ -311,7 +311,9 @@
     <target name="justwar">
         <jar jarfile="${gwava.dist.dir}/${webstart.name}.war" basedir="${gwava.build.dir}" />
     </target>
-
+    <target name="transmartwar" depends="signJar">
+        <jar jarfile="${gwava.dist.dir}/${webstart.name}.war" basedir="${gwava.build.dir}/dist" />
+    </target>
 
     <!--==================================================================-->
     <!--===================== cleans build directory ==========================-->
