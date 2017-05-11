@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,7 +25,6 @@ public class TransmartQueryParameterFetch {
 
     //public final static int MAX_STUDY_NAME_LENGTH = 26;
     public final static int MAX_STUDY_NAME_LENGTH = 70;
-    protected static Logger log = Logger.getLogger(com.pfizer.mrbt.genomics.TransmartClient.TransmartQueryParameterFetch.class.getName());
     private Environment environment;
 
     /**
@@ -35,7 +32,6 @@ public class TransmartQueryParameterFetch {
      */
     public TransmartQueryParameterFetch(Environment environment) {
         this.environment = environment;
-        log.setLevel(Level.DEBUG);
     }
 
     /**
@@ -219,10 +215,6 @@ public class TransmartQueryParameterFetch {
         String userName = System.getProperty("user.name");
         if(userName != null && ! userName.isEmpty()) { 
             return userName;
-        }
-        userName = new com.sun.security.auth.module.NTSystem().getName();
-        if(userName != null && ! userName.isEmpty()) {
-            return userName;  
         }
         return "";
     }

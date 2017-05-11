@@ -1,2 +1,8 @@
-/bin
-/builds
+.gradle
+.idea
+out
+.class
+.jar
+*/build/
+/build/
+*.iml
